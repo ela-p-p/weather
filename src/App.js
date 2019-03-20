@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import CityCard from './CityCard';
 import JSONresults from './apiData/cities'
+//import SearchBar from './SearchBar';
+
 
 
 class App extends Component {
@@ -13,22 +15,26 @@ class App extends Component {
     };
   }
 
+  handleChange = (event) => {
+    this.setState({ city: event.target.value });
+  }
+
 
   handleClick = (event) => {
-    console.log(this.state.city)
     event.preventDefault();
     const result = JSONresults.filter(
       city => {
         return city.title.toLowerCase().startsWith(this.state.city.toLowerCase())
-
       }
     )
-    this.setState({ result: result })
-    //console.log(result)
-  }
-
-  handleChange = (event) => {
-    this.setState({ city: event.target.value });
+    const newResult = this.state.result.filter(olderCity => olderCity.title !== result[0].title)
+    if (newResult.length > 4) {
+      newResult.pop()
+    }
+    this.setState({
+      result: [...result, ...newResult],
+      city: ''
+    })
   }
 
 
@@ -37,7 +43,7 @@ class App extends Component {
     console.log(results)
     return (
       <div className="App">
-        <form onSubmit={this.handleClick}>
+        <form >
           <label>
             City:
                 <input type="text"
