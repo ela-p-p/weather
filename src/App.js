@@ -20,11 +20,17 @@ class App extends Component {
     const result = JSONresults.filter(
       city => {
         return city.title.toLowerCase().startsWith(this.state.city.toLowerCase())
-
       }
     )
-    this.setState({ result: result })
-    //console.log(result)
+
+    const newResult = this.state.result.filter(oldCity => oldCity.title !== result[0].title)
+    if (newResult.length > 4) {
+      newResult.pop()
+    }
+    this.setState({
+      result: [...result, ...newResult],
+      city: ''
+    })
   }
 
   handleChange = (event) => {
