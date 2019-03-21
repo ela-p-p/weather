@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
 import CityCard from './CityCard';
 import JSONresults from './apiData/cities'
-//import SearchBar from './SearchBar';
+import SearchBar from './SearchBar';
 
 
 
@@ -28,7 +27,6 @@ class App extends Component {
       }
     )
 
-
     const newResult = this.state.result.filter(oldCity => oldCity.title !== result[0].title)
 
     if (newResult.length > 4) {
@@ -38,7 +36,7 @@ class App extends Component {
       result: [...result, ...newResult],
       city: ''
     })
-}
+  }
 
   handleChange = (event) => {
     this.setState({ city: event.target.value });
@@ -49,19 +47,8 @@ class App extends Component {
     const results = this.state.result
     console.log(results)
     return (
-      <div className="App">
-        <form >
-          <label>
-            City:
-                <input type="text"
-              value={this.state.city}
-              onChange={this.handleChange}
-            />
-          </label>
-          <button onClick={this.handleClick}>
-            Submit
-            </button>
-        </form>
+      <div className="container">
+        <SearchBar value={this.state.city} handleChange={this.handleChange} handleClick={this.handleClick}/>
         <CityCard
           results={results}
         />

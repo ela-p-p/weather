@@ -67,14 +67,12 @@ const styles = theme => ({
 });
 
 const CityCard = props => {
-    const { classes } = props;
-    const results = props.results
-
+    const { classes, results } = props;
     return (
         <main>
             <div className={classNames(classes.layout, classes.cardGrid)}>
                 <Grid container spacing={40}>
-                    {results.map(data => (
+                    {results.map((data, index) => (
                         <Grid sm={6} md={4} lg={3}>
                             <Card className={classes.card} key={data.woeid}>
                                 <CardContent>
@@ -84,7 +82,7 @@ const CityCard = props => {
 
 
                                     <Typography className={classes.pos} color="textSecondary" paragraph={true}
-                                        key={data.consolidated_weather[0].id}>
+                                        key={index}>
                                       Temp: {Math.round(data.consolidated_weather[0].the_temp)}ºC with {data.consolidated_weather[0].weather_state_name} 
                                     </Typography>
                                     
