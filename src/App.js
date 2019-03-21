@@ -28,7 +28,7 @@ class App extends Component {
     )
 
     const newResult = this.state.result.filter(oldCity => oldCity.title !== result[0].title)
-
+    
     if (newResult.length > 4) {
       newResult.pop()
     }
@@ -45,9 +45,11 @@ class App extends Component {
 
   render() {
     const results = this.state.result
+    
     return (
       <div className="container">
-        <SearchBar value={this.state.city} handleChange={this.handleChange} handleClick={this.handleClick}/>
+        <SearchBar value={this.state.city} handleChange={this.handleChange} handleClick={this.handleClick}
+        />
         <CityCard
           results={results}
         />
