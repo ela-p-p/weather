@@ -27,7 +27,10 @@ class App extends Component {
         return city.title.toLowerCase().startsWith(this.state.city.toLowerCase())
       }
     )
-    const newResult = this.state.result.filter(olderCity => olderCity.title !== result[0].title)
+
+
+    const newResult = this.state.result.filter(oldCity => oldCity.title !== result[0].title)
+
     if (newResult.length > 4) {
       newResult.pop()
     }
@@ -35,6 +38,10 @@ class App extends Component {
       result: [...result, ...newResult],
       city: ''
     })
+}
+
+  handleChange = (event) => {
+    this.setState({ city: event.target.value });
   }
 
 
