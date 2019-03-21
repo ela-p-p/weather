@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CityCard from './CityCard';
-import JSONresults from './apiData/cities'
+import JSONresults from './api/citiesData'
 import SearchBar from './SearchBar';
 
 
@@ -44,28 +44,13 @@ class App extends Component {
 
 
   render() {
+    const results = this.state.result
     return (
       <div className="container">
         <SearchBar value={this.state.city} handleChange={this.handleChange} handleClick={this.handleClick}/>
         <CityCard
           results={results}
         />
-      </div>
-
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
       </div>
     );
   }
