@@ -76,24 +76,21 @@ const CityCard = props => {
                                     {data.title}
                                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                                         Today <Avatar alt="weather icon" src={`https://www.metaweather.com/static/img/weather/${data.consolidated_weather[0].weather_state_abbr}.svg`} className={classes.bigAvatar} /></Typography>
-
-
                                     <Typography className={classes.pos} color="textSecondary" paragraph={true}
                                         key={index}>
-                                      Temp: {Math.round(data.consolidated_weather[0].the_temp)}ºC with {data.consolidated_weather[0].weather_state_name} 
+                                        Temp: {Math.round(data.consolidated_weather[0].the_temp)}ºC with {data.consolidated_weather[0].weather_state_name}
                                     </Typography>
-                                    
-                              <Typography color="textSecondary" variant="subheading">
-                              3 day forecast
-                              </Typography>
 
-                                    <Typography className={classes.pos} color="textSecondary" align="left" >
-                                    
-                                        {data.consolidated_weather.map(weather => (
-                                            <ol key={weather.id}>
+                                    <Typography color="textSecondary" variant="subheading">
+                                        3 day forecast
+                              </Typography>
+                                    {data.consolidated_weather.map(weather => (
+                                        <Typography className={classes.pos} color="textSecondary" align="left" key={weather.id}>
+                                            <ol >
                                                 {weather.applicable_date} Temp: {Math.round(weather.the_temp)}ºC with {weather.weather_state_name}
                                             </ol>
-                                        ))}</Typography>
+                                        </Typography>
+                                    ))}
                                 </CardContent>
                             </Card>
                         </Grid>
