@@ -1,116 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CityCard from '../components/CityCard';
-import JSONresults from '../api/citiesData'
+// import JSONresults from '../api/citiesData'
 import SearchBar from '../components/SearchBar';
-import { connect } from 'http2';
+import { connect } from 'react-redux';
 
-
-
-class App extends Component {
-  constructor(props) {
-    super(props);
+class App extends React.Component {
+  render() {
+    return (
+      <div className="container">
+        <SearchBar
+        />
+        {/* <CityCard
+          // results={results}
+        /> */}
+      </div>
+    );
   }
+}
 
-  const initialStateCity = {
-    city: '',
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer
   }
+}
+console.log('user', mapStateToProps)
 
-  const initialStateResult = {
-    result: [],
-    city: ''
-  }
-
-  const cityReducer = (state = initialStateCity, action) => {
-    switch (action.type) {
-      case 'GET_CITY':
-        state = {
-          ...state,
-          city: action.payload
-        }
-        break;
-      case 'SEARCH_CITY':
-        state = {
-          ...state,
-          result: [...state.result, action.payload]
-        }
-        break;
-      case 'CLEAR_CITY':
-        state = {
-          ...state,
-          city: ''
-        }
-        return state
-    }
-
-    // const clickReducer = (state = initialStateResult, action) => {
-    //     switch (action.type) {
-    //         case 'SEARCH_CITY':
-    //             state = {
-    //                 ...state,
-    //                 result: [...state.result, action.payload]
-    //             }
-    //     }
-    // }
-    const store = createStore(cityReducer)
-
-    store.dispatch({
-      type: 'GET_CITY',
-      payload: city
-    })
-    store.dispatch({
-      type: 'SEARCH_CITY',
-      payload: result
-    })
-    // handleChange = (event) => {
-    //   this.setState({ city: event.target.value });
-    // }
-
-
-    handleClick = (event) => {
-      event.preventDefault();
-      const result = JSONresults.filter(
-        city => {
-          return city.title.toLowerCase().startsWith(this.state.city.toLowerCase())
-        }
-      )
-
-      const newResult = this.state.result.filter(oldCity => oldCity.title !== result[0].title)
-
-      if (newResult.length > 4) {
-        newResult.pop()
-      }
-      this.setState({
-        result: [...result, ...newResult],
-        city: ''
+//which global actions to be used locally
+//the key is name for local, and property is the action (in this case a function with a name argument)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setName: (name) => {
+      dispatch({
+        type: "SET_NAME",
+        payload: name
       })
     }
-
-    render() {
-      const results = this.state.result
-
-      return (
-        <div className="container">
-          <SearchBar value={this.state.city} handleChange={this.handleChange} handleClick={this.handleClick}
-          />
-          <CityCard
-            results={results}
-          />
-        </div>
-      );
-    }
   }
-
-
-  const mapStateToProps = (state) => {
-    return {
-
-    }
-  }
-  const mapDispatchToProps = (dispatch) => {
-    return {
-
-    }
-  }
-
-  connect(mapStateToProps, mapDispatchToProps);
-  export default App;
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);
