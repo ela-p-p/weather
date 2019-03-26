@@ -7,60 +7,38 @@ import Divider from '@material-ui/core/Divider';
 //import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux'
 import JSONresults from '../api/citiesData'
+import { isBigIntLiteral } from 'typescript';
 
-// const styles = theme => ({
-//   root: {
-//     padding: '2px 4px',
-//     display: 'flex',
-//     alignItems: 'center',
-//     width: 300,
-//     ...theme.mixins.gutters(),
-//     paddingTop: theme.spacing.unit * 2,
-//     paddingBottom: theme.spacing.unit * 2,
-//   },
-//   input: {
-//     marginLeft: 8,
-//     flex: 1,
-//   },
-//   divider: {
-//     width: 1,
-//     height: 28,
-//     margin: 4,
-//   },
-// });
+const styles = theme => ({
+  root: {
+    padding: '2px 4px',
+    display: 'flex',
+    alignItems: 'center',
+    width: 300,
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+  },
+  input: {
+    marginLeft: 8,
+    flex: 1,
+  },
+  divider: {
+    width: 1,
+    height: 28,
+    margin: 4,
+  },
+});
 
 class SearchBar extends React.Component {
-  constructor(props) {
-    super();
-    this.state = {
-      username: '',
-      results: []
-    }
-  }
+ 
   onHandleChange(event) {
-    this.setState({
-      username: event.target.value
-    })
+    this.props.setName(event.target.value)
   }
   searchCity(event) {
     event.preventDefault(event)
-    this.props.getCity(this.state.username)
-    // this.setState({
-    //   results: this.results.push(oneCity)
-    // })
+    this.props.getCity(this.props.city.name)
   }
-
-  // displayCity(name) {
-  //   const newResult = action.payload.filter(oldCity => oldCity.title !== result[0].title)
-  //   if (newResult.length > 4) {
-  //     newResult.pop()
-  //   }
-  //   this.setState({
-  //     result: [...result, ...newResult],
-  //     city: ''
-  //   })
-  // }
-
 
   render() {
     return (
@@ -73,7 +51,7 @@ class SearchBar extends React.Component {
         <div className="row">
           <div className="col-xs-12">
             <form>
-              <input type="text" value={this.state.username}
+              <input type="text" value={this.props.city.name}
                 onChange={(event) => this.onHandleChange(event)}
               />
               <button
@@ -111,12 +89,13 @@ class SearchBar extends React.Component {
 // };
 const mapStateToProps = (state) => {
   return {
-    city: state.cityReducer
+    city: state
   }
 }
 
 //which global actions to be used locally
 //the key is name for local, and property is the action (in this case a function with a name argument)
+
 const mapDispatchToProps = (dispatch) => {
   return {
     setName: (name) => {
@@ -135,14 +114,7 @@ const mapDispatchToProps = (dispatch) => {
         )
       });
     },
-    displayCity: (name) => {
-      dispatch({
-        type: "DISPLAY_CITY",
-        payload: ''
-      });
-    }
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
-//export default withStyles(styles)(SearchBar);
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(SearchBar));

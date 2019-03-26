@@ -10,9 +10,9 @@ class App extends React.Component {
       <div className="container">
         <SearchBar
         />
-        {/* <CityCard
-          // results={results}
-        /> */}
+        <CityCard
+          results={this.props.city.results}
+        />
       </div>
     );
   }
@@ -20,21 +20,20 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer
+    city: state
   }
 }
-console.log('user', mapStateToProps)
 
 //which global actions to be used locally
 //the key is name for local, and property is the action (in this case a function with a name argument)
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setName: (name) => {
-      dispatch({
-        type: "SET_NAME",
-        payload: name
-      })
-    }
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     setName: (name) => {
+//       dispatch({
+//         type: "SET_NAME",
+//         payload: name
+//       })
+//     }
+//   }
+// }
+export default connect(mapStateToProps)(App);

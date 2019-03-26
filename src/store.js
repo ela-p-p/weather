@@ -3,7 +3,7 @@ import { cityReducer } from './reducers/cityReducer';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
-const store =  createStore(cityReducer,
+const store =  createStore(cityReducer, {},
     applyMiddleware(createLogger(), thunkMiddleware)
 )
 

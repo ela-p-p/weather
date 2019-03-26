@@ -65,6 +65,8 @@ const styles = theme => ({
 
 const CityCard = props => {
     const { classes, results } = props;
+    if (!results) return null
+    else {
     return (
         <main>
             <div className={classNames(classes.layout, classes.cardGrid)}>
@@ -94,12 +96,13 @@ const CityCard = props => {
                                 </CardContent>
                             </Card>
                         </Grid>
-                    ))}
-                </Grid>
+                    ))} 
+                </Grid> 
             </div>
 
         </main>
     );
+}
 }
 
 CityCard.propTypes = {
