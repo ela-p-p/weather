@@ -6,7 +6,6 @@ import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
 //import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux'
-import JSONresults from '../api/citiesData'
 import { isBigIntLiteral } from 'typescript';
 
 const styles = theme => ({
@@ -32,10 +31,10 @@ const styles = theme => ({
 
 class SearchBar extends React.Component {
  
-  onHandleChange(event) {
+  onHandleChange = (event) => {
     this.props.setName(event.target.value)
   }
-  searchCity(event) {
+  searchCity = (event) => {
     event.preventDefault(event)
     this.props.getCity(this.props.city.name)
   }
@@ -52,11 +51,11 @@ class SearchBar extends React.Component {
           <div className="col-xs-12">
             <form>
               <input type="text" value={this.props.city.name}
-                onChange={(event) => this.onHandleChange(event)}
+                onChange={this.onHandleChange}
               />
               <button
                 className="btn btn-primary"
-                onClick={this.searchCity.bind(this)}>Search</button>
+                onClick={this.searchCity}>Search</button>
             </form>
           </div>
         </div>
@@ -107,11 +106,7 @@ const mapDispatchToProps = (dispatch) => {
     getCity: (name) => {
       dispatch({
         type: "GET_CITY",
-        payload: JSONresults.filter(
-          city => {
-            return city.title.toLowerCase().startsWith(name.toLowerCase())
-          }
-        )
+        payload: name
       });
     },
   }

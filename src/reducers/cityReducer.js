@@ -9,7 +9,7 @@ export const cityReducer = (state = {
                 name: action.payload
             }
             break;
-        case "GET_CITY":
+        case "FETCH_SUCCESS":
             if (!state.results) return state = {
                 ...state, results: action.payload,
                 name: ''
