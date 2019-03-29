@@ -36,33 +36,10 @@ class SearchBar extends React.Component {
     this.props.setName(event.target.value)
   }
   searchCity = (event) => {
-    event.preventDefault(event)
+    event.preventDefault()
     this.props.getCity(this.props.city.name)
   }
 
-  // render() {
-  //   return (
-  //     <div>
-  //       <div className="row">
-  //         <div className="col-xs-12">
-  //           <h1>Weather App</h1>
-  //         </div>
-  //       </div>
-  //       <div className="row">
-  //         <div className="col-xs-12">
-  //           <form>
-  //             <input type="text" value={this.props.city.name}
-  //               onChange={(event) => this.onHandleChange(event)}
-  //             />
-  //             <button
-  //               className="btn btn-primary"
-  //               onClick={this.searchCity.bind(this)}>Search</button>
-  //           </form>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
   render() {
     const { classes } = this.props;
     return (
@@ -71,7 +48,7 @@ class SearchBar extends React.Component {
           <InputBase className={classes.input} 
           //placeholder="Search City" 
           value={this.props.city.name}
-          onChange={(event) => this.onHandleChange(event)}/>
+          onChange={this.onHandleChange}/>
           <Button variant="outlined" size="small" color="default" className={classes.margin} onClick={this.searchCity}>
           Search
         </Button>
