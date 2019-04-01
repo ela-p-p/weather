@@ -1,7 +1,7 @@
-export const cityReducer = (state = {
+export function cityReducer(state = {
     name: '',
     results: [],
-}, action) => {
+}, action) {
     switch (action.type) {
         case "SET_NAME":
             state = {

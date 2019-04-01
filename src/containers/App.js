@@ -26,16 +26,4 @@ const mapStateToProps = state => {
   };
 };
 
-//which global actions to be used locally
-//the key is name for local, and property is the action (in this case a function with a name argument)
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     setName: (name) => {
-//       dispatch({
-//         type: "SET_NAME",
-//         payload: name
-//       })
-//     }
-//   }
-// }
 export default connect(mapStateToProps)(App);
