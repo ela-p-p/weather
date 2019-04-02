@@ -1,6 +1,5 @@
 import React from "react";
 import CityCard from "../components/CityCard";
-// import JSONresults from '../api/citiesData'
 import SearchBar from "../components/SearchBar";
 import { connect } from "react-redux";
 

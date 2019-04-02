@@ -1,15 +1,17 @@
+import { SET_NAME,GET_CITY } from "../constants/index"
+import { cityAction } from "../actions";
 export const cityReducer = (state = {
     name: '',
     results: [],
 }, action) => {
     switch (action.type) {
-        case "SET_NAME":
+        case SET_NAME:
             state = {
                 ...state,
                 name: action.payload
             }
             break;
-        case "GET_CITY":
+        case GET_CITY:
             if (!state.results) return state = {
                 ...state, results: action.payload,
                 name: ''
