@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+//import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import classNames from 'classnames';
 import Avatar from '@material-ui/core/Avatar';
 
-const styles = theme => ({
+const styles:any = (theme: any) => ({
     appBar: {
         position: 'relative'
     },
@@ -63,7 +63,13 @@ const styles = theme => ({
     }
 });
 
-const CityCard = props => {
+export interface IProps {
+    classes:any;
+    name?: string;
+    results?: any;
+};
+
+const CityCard = (props: IProps) => {
     const { classes, results } = props;
     if (!results) return null
     else {
@@ -71,7 +77,7 @@ const CityCard = props => {
         <main>
             <div className={classNames(classes.layout, classes.cardGrid)}>
                 <Grid container spacing={40}>
-                    {results.map((data, index) => (
+                    {results.map((data:any, index:number) => (
                         <Grid sm={6} md={4} lg={3}>
                             <Card className={classes.card} key={index}>
                                 <CardContent>
@@ -86,7 +92,7 @@ const CityCard = props => {
                                     <Typography color="textSecondary" variant="subheading">
                                         3 day forecast
                               </Typography>
-                                    {data.consolidated_weather.map(weather => (
+                                    {data.consolidated_weather.map((weather:any) => (
                                         <Typography className={classes.pos} color="textSecondary" align="left" key={weather.id}>
                                             <ol >
                                                 {weather.applicable_date} Temp: {Math.round(weather.the_temp)}ºC with {weather.weather_state_name}
@@ -105,8 +111,5 @@ const CityCard = props => {
 }
 }
 
-CityCard.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(CityCard);

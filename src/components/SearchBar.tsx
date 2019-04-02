@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
+import * as Redux from "redux";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
@@ -7,8 +7,9 @@ import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import * as actions from "../actions";
+import { StoreState } from "../types/index";
 
-const styles = theme => ({
+const styles: any = (theme: any) => ({
   root: {
     padding: "2px 4px",
     display: "flex",
@@ -29,24 +30,43 @@ const styles = theme => ({
   }
 });
 
-class SearchBar extends React.Component {
-  onHandleChange = event => {
+export interface OwnProps {
+  classes: any;
+}
+export interface StateProps {
+  name?: string;
+  results?: any;
+}
+
+export interface DispatchProps {
+  setName?: (name: string) => any | undefined;
+  getCity?: (name: string) => any | undefined;
+}
+
+type IProps = StateProps & DispatchProps & OwnProps
+
+
+
+class SearchBar extends React.Component<IProps> {
+  onHandleChange = (event:React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     this.props.setName(event.target.value);
   };
   searchCity = event => {
     event.preventDefault();
-    this.props.getCity(this.props.city.name);
+    this.props.getCity(name);
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, name } = this.props;
+    console.log(this.props)
+
     return (
       <form onSubmit={this.searchCity}>
         <Paper className={classes.root} elevation={1}>
           <InputBase
             className={classes.input}
             //placeholder="Search City"
-            value={this.props.city.name}
+            value={name}
             onChange={this.onHandleChange}
           />
           <Button
@@ -65,19 +85,19 @@ class SearchBar extends React.Component {
   }
 }
 
-SearchBar.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-const mapStateToProps = state => {
+
+const mapStateToProps = ({cityName, cityResults}: StoreState):StateProps => {
+  
   return {
-    city: state
+    name: cityName,
+    results: cityResults
   };
 };
 
 //which global actions to be used locally
 //the key is name for local, and property is the action (in this case a function with a name argument)
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch:Redux.Dispatch<actions.cityAction>):DispatchProps => {
   return {
     setName: name => dispatch(actions.setName(name)),
     getCity: name => dispatch(actions.getCity(name))
