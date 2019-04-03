@@ -1,15 +1,15 @@
-export function cityReducer(state = {
-    name: '',
-    results: [],
-}, action) {
+import { SET_NAME,GET_CITY } from "../constants/index"
+import { cityAction } from "../actions";
+import { StoreState } from "../types/index"
+export const cityReducer = (state:StoreState = {}, action: cityAction) => {
     switch (action.type) {
-        case "SET_NAME":
+        case SET_NAME:
             state = {
                 ...state,
                 name: action.payload
             }
             break;
-        case "GET_CITY":
+        case GET_CITY:
             if (!state.results) return state = {
                 ...state, results: action.payload,
                 name: ''
