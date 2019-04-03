@@ -1,9 +1,13 @@
-import React from "react";
+import * as React from "react";
 import CityCard from "../components/CityCard";
 import SearchBar from "../components/SearchBar";
 import { connect } from "react-redux";
+import { StoreState } from "../types/index"
 
-class App extends React.Component {
+interface IProps {
+  results?: any[];
+}
+class App extends React.Component<IProps> {
   render() {
     return (
       <div className="container">
@@ -13,15 +17,15 @@ class App extends React.Component {
           </div>
         </div>
         <SearchBar />
-        <CityCard results={this.props.city.results} />
+        <CityCard results={this.props.results} />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: StoreState): IProps=> {
   return {
-    city: state
+    results: state.results
   };
 };
 

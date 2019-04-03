@@ -1,4 +1,4 @@
 export interface StoreState {
-    cityName: string;
-    cityResults: [];
+    name?: string;
+    results?: any[];
 }

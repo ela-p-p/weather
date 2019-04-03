@@ -35,30 +35,30 @@ export interface OwnProps {
 }
 export interface StateProps {
   name?: string;
-  results?: any;
+  results?: any[];
 }
 
 export interface DispatchProps {
-  setName?: (name: string) => any | undefined;
-  getCity?: (name: string) => any | undefined;
+  setName?: (name: any) => any;
+  getCity?: (name: any) => any;
 }
 
-type IProps = StateProps & DispatchProps & OwnProps
-
-
+type IProps = StateProps & DispatchProps & OwnProps;
 
 class SearchBar extends React.Component<IProps> {
-  onHandleChange = (event:React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    this.props.setName(event.target.value);
+  onHandleChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    this.props.setName!(event.currentTarget.value);
   };
-  searchCity = event => {
+  searchCity = (event: any) => {
     event.preventDefault();
-    this.props.getCity(name);
+    this.props.getCity!(this.props.name);
   };
 
   render() {
     const { classes, name } = this.props;
-    console.log(this.props)
+    console.log(this.props);
 
     return (
       <form onSubmit={this.searchCity}>
@@ -85,19 +85,19 @@ class SearchBar extends React.Component<IProps> {
   }
 }
 
-
-const mapStateToProps = ({cityName, cityResults}: StoreState):StateProps => {
-  
+const mapStateToProps = (state: StoreState): StateProps => {
   return {
-    name: cityName,
-    results: cityResults
+    name: state.name,
+    results: state.results
   };
 };
 
 //which global actions to be used locally
 //the key is name for local, and property is the action (in this case a function with a name argument)
 
-const mapDispatchToProps = (dispatch:Redux.Dispatch<actions.cityAction>):DispatchProps => {
+const mapDispatchToProps = (
+  dispatch: Redux.Dispatch<actions.cityAction>
+): DispatchProps => {
   return {
     setName: name => dispatch(actions.setName(name)),
     getCity: name => dispatch(actions.getCity(name))

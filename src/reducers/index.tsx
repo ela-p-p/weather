@@ -1,9 +1,7 @@
 import { SET_NAME,GET_CITY } from "../constants/index"
 import { cityAction } from "../actions";
-export const cityReducer = (state = {
-    name: '',
-    results: [],
-}, action) => {
+import { StoreState } from "../types/index"
+export const cityReducer = (state:StoreState = {}, action: cityAction) => {
     switch (action.type) {
         case SET_NAME:
             state = {
